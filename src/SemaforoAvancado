@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class SemaforoAvancado {
+    enum EstadoSemaforo {
+        VERMELHO(30, "PARE"), 
+        AMARELO(5, "ATENÇÃO"), 
+        VERDE(45, "SIGA");
+        
+        final int tempo;
+        final String acao;
+        
+        EstadoSemaforo(int tempo, String acao) {
+            this.tempo = tempo;
+            this.acao = acao;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("SEMÁFORO AVANÇADO");
+        
+        System.out.print("Deseja modo noturno intermitente? (S/N): ");
+        boolean noturno = scanner.next().equalsIgnoreCase("S");
+        
+        if (noturno) {
+            // Modo noturno (apenas amarelo piscando)
+            System.out.println("\nMODO INTERMITENTE (AMARELO)");
+            while (true) {
+                System.out.println("\nAMARELO - ATENÇÃO");
+                contagemRegressiva(1);
+                System.out.println("\n(apagado)");
+                contagemRegressiva(1);
+            }
+        } else {
+            // Modo normal
+            System.out.print("Quantos ciclos deseja simular? ");
+            int ciclos = scanner.nextInt();
+            
+            for (int ciclo = 1; ciclo <= ciclos; ciclo++) {
+                System.out.println("\n--- CICLO " + ciclo + " ---");
+                
+                for (EstadoSemaforo estado : EstadoSemaforo.values()) {
+                    System.out.printf("\n%s - %s (%ds)\n", 
+                        estado, estado.acao, estado.tempo);
+                    contagemRegressiva(estado.tempo);
+                }
+            }
+        }
+        
+        scanner.close();
+    }
+    
+    private static void contagemRegressiva(int segundos) {
+        for (int i = segundos; i > 0; i--) {
+            System.out.print(i + ".. ");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
