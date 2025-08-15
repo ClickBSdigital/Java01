@@ -1,0 +1,306 @@
+Aqui está um exemplo completo de como trabalhar com matrizes em Python, incluindo criação, acesso, modificação e operações comuns:
+
+1. Criando uma Matriz
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+⌄
+# Matriz 3x3 (3 linhas, 3 colunas)
+matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Matriz vazia (2x2)
+matriz_vazia = [[0 for _ in range(2)] for _ in range(2)]
+
+# Matriz com valores aleatórios (3x4)
+import random
+matriz_aleatoria = [[random.randint(1, 100) for _ in range(4)] for _ in range(3)]
+2. Acessando Elementos
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+# Acessar elemento específico (linha, coluna)
+elemento = matriz[0][1]  # Segundo elemento da primeira linha (valor: 2)
+
+# Acessar linha inteira
+linha = matriz[1]  # [4, 5, 6]
+
+# Acessar coluna inteira
+coluna = [linha[2] for linha in matriz]  # [3, 6, 9]
+3. Modificando Elementos
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+# Alterar um elemento
+matriz[0][0] = 10  # Primeiro elemento vira 10
+
+# Adicionar nova linha
+matriz.append([10, 11, 12])
+
+# Inserir linha em posição específica
+matriz.insert(1, [20, 21, 22])  # Insere na posição 1
+4. Percorrendo a Matriz
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+⌄
+⌄
+⌄
+⌄
+# Percorrer todos os elementos
+for i in range(len(matriz)):
+    for j in range(len(matriz[i])):
+        print(f"Elemento [{i}][{j}] = {matriz[i][j]}")
+
+# Percorrer com enumeração
+for i, linha in enumerate(matriz):
+    for j, valor in enumerate(linha):
+        print(f"Linha {i}, Coluna {j}: {valor}")
+5. Operações Comuns
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+⌄
+⌄
+⌄
+# Soma de matrizes
+def soma_matrizes(A, B):
+    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+# Multiplicação por escalar
+escalar = 2
+resultado = [[elemento * escalar for elemento in linha] for linha in matriz]
+
+# Transposição
+def transposta(matriz):
+    return [[matriz[j][i] for j in range(len(matriz))] for i in range(len(matriz[0]))]
+
+# Verificar se é quadrada
+def e_quadrada(matriz):
+    return all(len(linha) == len(matriz) for linha in matriz)
+6. Exemplo Prático: Multiplicação de Matrizes
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+⌄
+⌄
+⌄
+⌄
+⌄
+def multiplica_matrizes(A, B):
+    # Verifica se é possível multiplicar
+    if len(A[0]) != len(B):
+        raise ValueError("Número de colunas de A deve ser igual ao número de linhas de B")
+    
+    resultado = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
+    
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                resultado[i][j] += A[i][k] * B[k][j]
+    return resultado
+
+# Exemplo de uso:
+A = [[1, 2], [3, 4]]
+B = [[5, 6], [7, 8]]
+print(multiplica_matrizes(A, B))  # [[19, 22], [43, 50]]
+7. Biblioteca NumPy (Recomendado para Operações Complexas)
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+⌄
+import numpy as np
+
+# Criar matriz
+matriz_np = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+
+# Operações
+soma = matriz_np + 10          # Soma escalar
+transposta = matriz_np.T        # Transposição
+inversa = np.linalg.inv(matriz_np)  # Matriz inversa (se for quadrada e invertível)
+determinante = np.linalg.det(matriz_np)  # Determinante
+eigenvalues, eigenvectors = np.linalg.eig(matriz_np)  # Autovalores e autovetores
+Dicas Importantes:
+Índices em Python: Começam em 0 (primeiro elemento é [0][0])
+Matrizes Irregulares: Python permite linhas com tamanhos diferentes
+Performance: Para operações matemáticas complexas, use NumPy (mais eficiente)
+Validação: Sempre verifique dimensões antes de operar com matrizes
+Exemplo Completo:
+python
+
+Line Wrapping
+
+Collapse
+Copy
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+⌄
+⌄
+⌄
+⌄
+⌄
+⌄
+# Sistema simples de gerenciamento de matriz
+class Matriz:
+    def __init__(self, dados):
+        self.dados = dados
+    
+    def __str__(self):
+        return "\n".join([" ".join(map(str, linha)) for linha in self.dados])
+    
+    def dimensao(self):
+        return len(self.dados), len(self.dados[0])
+    
+    def soma(self, outra):
+        if self.dimensao() != outra.dimensao():
+            raise ValueError("Matrizes de dimensões diferentes")
+        return Matriz([[self.dados[i][j] + outra.dados[i][j] 
+                       for j in range(len(self.dados[0]))] 
+                       for i in range(len(self.dados))])
+
+# Uso:
+m1 = Matriz([[1, 2], [3, 4]])
+m2 = Matriz([[5, 6], [7, 8]])
+m3 = m1.soma(m2)
+print(m3)
+# Saída:
+# 6 8
+# 10 12
+Este exemplo cobre desde conceitos básicos até operações avançadas. Para aplicações científicas ou de machine learning, recomendo fortemente o uso da biblioteca NumPy, que oferece implementações otimizadas e uma sintaxe mais concisa.
