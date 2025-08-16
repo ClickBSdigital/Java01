@@ -3,23 +3,19 @@ Aqui está um exemplo completo de como trabalhar com matrizes em Python, incluin
 1. Criando uma Matriz
 python
 
-Line Wrapping
+# Matriz 3x3 (3 linhas, 3 colunas)
+matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
 
-Collapse
-Copy
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
+# Matriz vazia (2x2)
+matriz_vazia = [[0 for _ in range(2)] for _ in range(2)]
+
+# Matriz com valores aleatórios (3x4)
+import random
+matriz_aleatoria = [[random.randint(1, 100) for _ in range(4)] for _ in range(3)]
 ⌄
 # Matriz 3x3 (3 linhas, 3 colunas)
 matriz = [
